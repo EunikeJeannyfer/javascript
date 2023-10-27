@@ -56,7 +56,7 @@ module.exports = {
         })
 
         if (account){
-            console.log("masuk")
+            
             prisma.bankAccount.update({
                 data: {
                     balance:{
@@ -67,14 +67,12 @@ module.exports = {
                     account_number: req.body.source_account_number
                 },
             });
-            console.log("hello")
             const user = await prisma.transaction.create({ 
-                data: {
+                data:{
                     source_account_number: req.body.source_account_number,
+                    destination_account_number: req.body.destination_account_number,
                     amount: req.body.amount,
-                    typeTransaction: req.body.typeTransaction,
-                    sourceNumber: null, 
-                    destinationNumber: null
+                    type: req.body.type,
                 }
             });
             
@@ -86,6 +84,66 @@ module.exports = {
                 message: 'Data ditambahkan!',
                 data: user
             })
+        }
+    },
+    async transfer(req, res){
+
+        const source = await prisma.bankAccount.findUnique({
+            where:{
+                account_number: req.body.source_account_number
+            }
+        })
+        const destination = await prisma.bankAccount.findUnique({
+            where:{
+                account_number: req.body.destination_account_number
+            }
+        })
+
+        //jika kedua account number tersedia
+        if (source){
+            if(destination){
+
+                if(+source.balance >= +req.body.amount){
+                    prisma.bankAccount.update({
+                        data: {
+                            balance:{
+                                decrement: +req.body.amount
+                            }
+                        },
+                        where:{
+                            account_number: req.body.source_account_number
+                        },
+                    });
+                    prisma.bankAccount.update({
+                        data: {
+                            balance:{
+                                increment: +req.body.amount
+                            }
+                        },
+                        where:{
+                            account_number: req.body.destination_account_number
+                        },
+                    });
+
+                    const user = await prisma.transaction.create({ 
+                        data: {
+                            source_account_number: req.body.source_account_number,
+                            destination_account_number: req.body.destination_account_number,
+                            amount: req.body.amount,
+                            type: req.body.type,
+                        }
+                    });
+                    
+                    console.log(user)
+
+                    res.status(201).json({ 
+                        status: 'success', 
+                        code: 200, 
+                        message: 'Data ditambahkan!',
+                        data: user
+                    })
+                }
+            }
         }
     },
 }

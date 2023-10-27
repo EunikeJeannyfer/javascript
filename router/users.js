@@ -38,5 +38,6 @@ router.delete('/v2/type/:id', controller.tipeTransaksi.destroy)
 router.get('/v2/transaction', controller.transaction.get)
 router.get('/v2/transaction/:id', controller.transaction.getById)
 router.post('/v2/transaction', controller.transaction.deposit)
+router.post('/v2/transfer', controller.transaction.transfer)
 
 module.exports = router
