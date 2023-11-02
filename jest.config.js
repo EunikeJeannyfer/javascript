@@ -24,7 +24,14 @@ const config = {
   // collectCoverageFrom: undefined,
 
   // The directory where Jest should output its coverage files
+   //ini collect dr folder app, dan setting minimal 90 baris
   coverageDirectory: "coverage",
+  collectCoverageFrom: ["./app/**"],
+  coverageThreshold: {
+    "global": {
+      "lines": 90
+    }
+  },
 
   // An array of regexp pattern strings used to skip coverage collection
   // coveragePathIgnorePatterns: [

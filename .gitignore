@@ -1,3 +1,4 @@
 # ini folder yg jgn dimasukin ke github krn gaperlu, node_modules ini bakal bnyk bgt
 # nnt org-org bs download package sesuai package.json pake npm i / pnpm i
 node_modules
+coverage
