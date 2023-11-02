@@ -7,9 +7,11 @@ const prisma = new PrismaClient()
 module.exports = {
     //menampilkan user dan profilenya 
     async get(req, res){
-        const { search, page, limit } = req.query;
+        const { search, page = 1, limit = 10  } = req.query;
         console.log(req.query);
         let result = await prisma.user.findMany({
+            skip: (page - 1) * limit,
+            take: limit,
             include: {
                 profile: true,
             },
