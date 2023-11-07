@@ -70,7 +70,8 @@ module.exports = {
                     create: {
                         identity_type: req.body.identity_type,
                         identity_number: req.body.identity_number,
-                        address: req.body.address
+                        address: req.body.address,
+                        createdBy: createdBy.name
                     }
                 }
             }

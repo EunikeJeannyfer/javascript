@@ -5,10 +5,11 @@ const profile = require('./api/v2/profile')
 const bankAccount = require('./api/v2/bankAccount')
 const tipeTransaksi = require('./api/v2/tipeTransaksi')
 const transaction = require('./api/v2/transaction')
+const auth = require('./api/v2/auth')
 
 module.exports = {
     users,
     usersV2, 
     profile,
-    bankAccount, tipeTransaksi, transaction
+    bankAccount, tipeTransaksi, transaction, auth
 }
