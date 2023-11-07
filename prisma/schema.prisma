@@ -13,7 +13,8 @@ model User{
   id Int @id @default(autoincrement())
   email String @unique
   nama String
-  password String
+  password String?
+  googleId String?
   profile Profile?
   //si user ga wajib punya profile jd pake ?, ini 1:1
   bankAccount BankAccount[]
@@ -54,11 +55,11 @@ model TipeTransaksi {
 model Transaction {
   id Int @id @default(autoincrement())
   source_account_number String
-  destination_account_number String
+  destination_account_number String?
   amount Int 
   type Int
   transaction_date DateTime @default(now())
   typeTransaction TipeTransaksi @relation(fields: [type], references: [id])
   sourceNumber BankAccount @relation(name: "source", fields: [source_account_number], references: [account_number])
-  destinationNumber BankAccount @relation(name: "destination", fields: [destination_account_number], references: [account_number])
+  destinationNumber BankAccount? @relation(name: "destination", fields: [destination_account_number], references: [account_number])
 }
