@@ -120,5 +120,16 @@ module.exports = {
             return done(null, false, { mesage: err.message})
         }
     },
+    oauth: async (req, res) => {
+        const token = await JWTsign({
+            ...req.user,
+            password: null
+        })
+        return res.status(201).json({
+            status: "Success!",
+            message: "Berhasil Login",
+            data: { token }
+        })
+    }
     
 }
