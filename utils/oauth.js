@@ -12,7 +12,7 @@ const {
 passport.use(new GoogleStrategy({
     clientID : GOOGLE_CLIENT_ID,
     clientSecret: GOOGLE_SECRET_ID,
-    callbackURL: "http://localhost:3000/google/auth/callback"
+    callbackURL: "http://localhost:3000/auth/google/callback"
 },
     async function(accessToken, refreshToken, profile, done){
         console.log(profile)
@@ -29,7 +29,7 @@ passport.use(new GoogleStrategy({
             done(null, user)
         }
         catch(err){
-            done(error, null)
+            done(err, null)
         }
     }
 ))
