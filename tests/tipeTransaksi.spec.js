@@ -1,6 +1,6 @@
 // unit testing dgn jest 
 
-const base = require('../app/controller/api/v2/users')
+const base = require('../app/controller/api/v2/tipeTransaksi')
 const mockRequest = (body = {}, query = {}, params = {} ) => ({ body, query, params })
 const mockResponse = () => {
     const res = {}
@@ -11,7 +11,7 @@ const mockResponse = () => {
 }
 
 //get user test
-describe("users.get function", () => {
+describe("tipeTransaksi.get function", () => {
     test("res.json called with users data", async () => {
         const req = mockRequest()
         const res = mockResponse()
@@ -40,16 +40,16 @@ describe("users.get function", () => {
             expect.objectContaining({
                 status: 'success',
                 code:200,
-                message:"Data Empty"
+                message:"Success!"
             })
         )
     })
 })
 
-describe("users.getByID function", () => {
+describe("tipeTransaksi.getByID function", () => {
     test("res.json called with users data", async () => {
         const req = mockRequest({}, {
-            id:1
+            params:1
         })
         const res = mockResponse()
         await base.get(req, res)
@@ -66,7 +66,7 @@ describe("users.getByID function", () => {
     })
 })
 
-describe("users.destroy function", () => {
+describe("tipeTransaksi.destroy function", () => {
     test("res.json called with users data", async () => {
         const req = mockRequest({}, {
             params:13
@@ -87,26 +87,21 @@ describe("users.destroy function", () => {
 })
 
 
-// describe("users.create function", () => {
-//     test("res.json called with status 201", async () => {
-//         const req = mockRequest({
-//             nama: "Benedict",
-//             email: "benedict@gmail.com",
-//             password: "1234",
-//             identity_number: 22106150,
-//             identity_type: "KTP",
-//             address: "Jalan Merak no 50"
-//         })
-//         const res = mockResponse()
-//         await base.create(req, res)
-//         expect(res.status).toBeCalledWith(200)
-//         expect(res.json).toBeCalledWith(
-//             expect.objectContaining({
-//                 status: 'success',
-//                 code:200,
-//                 message:"Data ditambahkan!",
-//                 data: expect.any(Object)
-//             })
-//         )
-//     })
-// })
+describe("tipeTransaksi.create function", () => {
+    test("res.json called with status 201", async () => {
+        const req = mockRequest({
+            nama_tipe: "test"
+        })
+        const res = mockResponse()
+        await base.create(req, res)
+        expect(res.status).toBeCalledWith(201)
+        expect(res.json).toBeCalledWith(
+            expect.objectContaining({
+                status: 'success',
+                code:200,
+                message:"Data ditambahkan!",
+                data: expect.any(Object)
+            })
+        )
+    })
+})

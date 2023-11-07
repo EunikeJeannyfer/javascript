@@ -1,6 +1,6 @@
 // unit testing dgn jest 
 
-const base = require('../app/controller/api/v2/users')
+const base = require('../app/controller/api/v2/bankAccount')
 const mockRequest = (body = {}, query = {}, params = {} ) => ({ body, query, params })
 const mockResponse = () => {
     const res = {}
@@ -11,7 +11,7 @@ const mockResponse = () => {
 }
 
 //get user test
-describe("users.get function", () => {
+describe("bankAccount.get function", () => {
     test("res.json called with users data", async () => {
         const req = mockRequest()
         const res = mockResponse()
@@ -40,16 +40,16 @@ describe("users.get function", () => {
             expect.objectContaining({
                 status: 'success',
                 code:200,
-                message:"Data Empty"
+                message:"Success!"
             })
         )
     })
 })
 
-describe("users.getByID function", () => {
+describe("bankAccount.getByID function", () => {
     test("res.json called with users data", async () => {
         const req = mockRequest({}, {
-            id:1
+            params:1
         })
         const res = mockResponse()
         await base.get(req, res)
@@ -66,7 +66,7 @@ describe("users.getByID function", () => {
     })
 })
 
-describe("users.destroy function", () => {
+describe("bankAccount.destroy function", () => {
     test("res.json called with users data", async () => {
         const req = mockRequest({}, {
             params:13
@@ -87,15 +87,13 @@ describe("users.destroy function", () => {
 })
 
 
-// describe("users.create function", () => {
+// describe("bankAccount.create function", () => {
 //     test("res.json called with status 201", async () => {
 //         const req = mockRequest({
-//             nama: "Benedict",
-//             email: "benedict@gmail.com",
-//             password: "1234",
-//             identity_number: 22106150,
-//             identity_type: "KTP",
-//             address: "Jalan Merak no 50"
+//             source_account_number: "2210-1022-5610-9021", 
+//             destination_account_number: "1020-5120-1132-2417",
+//             amount: 50000,
+//             type: 3
 //         })
 //         const res = mockResponse()
 //         await base.create(req, res)
